@@ -1,0 +1,16 @@
+{
+  "configurations": [
+    {
+      "name": "Deploy Cloud Function",
+      "type": "cloudcode.cloudfunctions",
+      "request": "launch",
+      "functionName": "annotate-http",
+      "region": "us-central1",
+      "gen": "GEN_2",
+      "revision": "annotate-http-00001-yug",
+      "entryPoint": "annotate_http",
+      "runtime": "python311",
+      "testInput": ""
+    }
+  ]
+}

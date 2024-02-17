@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Vision API Annotate Image</title>
+</head>
+<body>
+<h1>Vision API Annotate Image</h1>
+<form id="annotate-form" action="https://us-central1-duet-trial-414409.cloudfunctions.net/annotate-http/annotate" method="POST">
+    <label for="image-uri">Image URI:</label>
+    <input type="text" id="image-uri" name="image_uri" value="gs://cloud-samples-data/vision/eiffel_tower.jpg">
+    <br>
+    <label for="features">Features:</label>
+    <select id="features" name="features">
+    <option value="LABEL_DETECTION">LABEL_DETECTION</option>
+    <option value="TEXT_DETECTION">TEXT_DETECTION</option>
+    <option value="IMAGE_PROPERTIES">IMAGE_PROPERTIES</option>
+    </select>
+    <br>
+    <input type="submit" value="Annotate">
+</form>
+
+<div id="result"></div>
+
+<script>
+    const form = document.getElementById('annotate-form');
+
+    form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const imageUri = document.getElementById('image-uri').value;
+    const features = document.getElementById('features').value;
+
+    const data = {
+        image_uri: imageUri,
+        features: features,
+    };
+
+    fetch('https://us-central1-duet-trial-414409.cloudfunctions.net/annotate-http/annotate', {
+        method: 'POST',
+        headers: {
+        'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(data),
+    })
+        .then((response) => response.json())
+        .then((result) => {
+        const resultElement = document.getElementById('result');
+        resultElement.innerHTML = JSON.stringify(result, null, 2);
+        });
+    });
+</script>
+</body>
+</html>
